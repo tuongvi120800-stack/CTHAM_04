@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sổ Tay Nghe Hiểu</title><style>
+  @import url('https://fonts.googleapis.com/css2?family=Petrona:opsz,wght@8..30,400;8..30,500;8..30,600;8..30,700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif+SC:wght@600&display=swap');
+
+  :root{
+    --bg: #F1F4EE; --surface: #FFFFFF; --surface-alt: #E6EDE3;
+    --ink: #1B241C; --ink-soft: #4C5B4C; --ink-faint: #7C8A79;
+    --accent: #2B6E60; --accent-ink: #1E4E44; --accent-soft: #DCEBE3;
+    --warm: #A8763A; --warm-soft: #F1E4CB; --warm-ink: #7A5424;
+    --border: #D5DED0; --border-strong: #B9C7B3;
+    --danger-ink: #7B3B2C; --danger-bg: #F5E6DC; --danger-border: #E0BFA9;
+    --shadow: 0 1px 2px rgba(27,36,28,0.04), 0 8px 24px -12px rgba(27,36,28,0.12);
+  }
+    
+  *{ box-sizing: border-box; }
+  body{ background: var(--bg); color: var(--ink); font-family: 'Be Vietnam Pro', -apple-system, 'Segoe UI', system-ui, sans-serif; line-height: 1.6; font-size: 16px; }
+  .zh{ font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', 'Be Vietnam Pro', sans-serif; }
+  h1,h2,h3{ font-family: 'Petrona', Georgia, 'Times New Roman', serif; text-wrap: balance; color: var(--ink); }
+  .wrap{ max-width: 800px; margin: 0 auto; padding: 56px 24px 96px; }
+
+  .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm-ink); }
+  .eyebrow::before{ content:""; width:16px; height:1px; background: var(--warm); }
+  h1.title{ font-size: clamp(2rem, 4.5vw, 2.7rem); font-weight: 600; margin: 14px 0 12px; line-height:1.15; }
+  .lede{ font-size: 17px; color: var(--ink-soft); max-width: 62ch; margin: 0 0 18px; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 8px; }
+  .pill{ font-size: 12.5px; font-weight:500; color: var(--ink-soft); background: var(--surface-alt); border:1px solid var(--border); padding: 5px 11px; border-radius: 999px; }
+
+  hr.rule{ border:none; border-top:1px solid var(--border); margin: 40px 0; }
+  section{ margin-bottom: 8px; }
+  .sec-head{ display:flex; align-items:baseline; gap:10px; margin-bottom:14px; }
+  .sec-num{ font-family:'Petrona',serif; font-size:14px; font-weight:600; color: var(--accent); }
+  h2{ font-size: 1.4rem; font-weight:600; margin:0; }
+  h3{ font-size: 1.05rem; font-weight:600; margin: 0 0 6px; color: var(--ink); }
+  p{ margin: 0 0 14px; color: var(--ink); }
+  p.soft{ color: var(--ink-soft); }
+  a{ color: var(--accent-ink); }
+
+  .callout{ background: var(--warm-soft); border: 1px solid var(--danger-border); border-left: 3px solid var(--warm); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; }
+  .callout .tag{ font-size:11.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color: var(--warm-ink); display:block; margin-bottom:6px; }
+  .callout p{ margin:0; color: var(--ink); font-size: 15px; }
+
+  .cycle{ display:flex; align-items:stretch; flex-wrap:wrap; gap:0; margin: 18px 0 8px; }
+  .cycle-node{ flex:1 1 150px; background: var(--surface); border:1px solid var(--border); border-radius:12px; padding:13px 15px; box-shadow: var(--shadow); min-width:150px; }
+  .cycle-node .num{ width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-bottom:8px; }
+  .cycle-node .name{ font-family:'Petrona',serif; font-size:16px; font-weight:700; color: var(--accent-ink); margin-bottom:5px; }
+  .cycle-node .desc{ font-size:12.5px; color: var(--ink-soft); line-height:1.5; margin-bottom:7px; }
+  .cycle-node .cue{ font-size:13px; background: var(--surface-alt); border-radius:6px; padding:4px 8px; display:inline-block; }
+  .cycle-arrow{ flex:0 0 26px; display:flex; align-items:center; justify-content:center; color: var(--ink-faint); font-size:18px; }
+  .cycle-loop{ text-align:center; font-size:13px; color: var(--warm-ink); font-style:italic; margin-top:4px; }
+  @media (max-width: 680px){ .cycle{ flex-direction:column; } .cycle-arrow{ transform:rotate(90deg); align-self:center; height:20px; } }
+
+  .topic{ border:1px solid var(--border); border-radius:14px; background: var(--surface); box-shadow: var(--shadow); padding: 22px 24px; margin-bottom: 22px; }
+  .topic-head{ display:flex; align-items:center; gap:12px; margin-bottom:6px; flex-wrap:wrap; }
+  .topic-tag{ font-family:'Petrona',serif; font-weight:700; font-size:13px; color: var(--accent); border:1px solid var(--accent); border-radius: 999px; padding: 3px 11px; white-space: nowrap; }
+
+  .voc-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap:9px; margin: 10px 0 4px; }
+  .voc{ background: var(--surface-alt); border:1px solid var(--border); border-radius:9px; padding: 9px 12px; }
+  .voc .hz{ font-size: 16px; font-weight:600; }
+  .voc .py{ font-size: 11.5px; color: var(--ink-faint); font-style: italic; margin-left:5px; }
+  .voc .vi{ font-size: 13px; color: var(--ink-soft); margin-top:2px; }
+
+  .gram{ background: var(--accent-soft); border:1px solid var(--border-strong); border-radius:9px; padding: 9px 12px; margin-bottom:7px; }
+  .gram .hz{ font-size:15px; font-weight:600; }
+  .gram .vi{ font-size:12.5px; color: var(--ink-soft); margin-top:2px; }
+
+  .note-block{ border:1px solid var(--border); border-radius:10px; padding: 12px 14px; margin-bottom:10px; background: var(--bg); }
+  .note-block .q{ font-size:14.5px; margin-bottom:8px; }
+  .note-block .q .hz{ font-weight:500; }
+  .note-block .q .vi{ color: var(--ink-soft); font-size:12.5px; }
+  .note-block textarea{ width:100%; min-height:56px; resize:vertical; border:1px dashed var(--border-strong); border-radius:8px; background: var(--surface); color: var(--ink); font-family:'Be Vietnam Pro', sans-serif; font-size:14px; padding:9px 11px; }
+  .note-block textarea::placeholder{ color: var(--ink-faint); }
+  .note-block textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; border-style:solid; }
+
+  .retell{ background: var(--accent-soft); border:1px solid var(--border-strong); border-radius: 12px; padding: 16px 18px; margin-top: 14px; }
+  .retell h3{ color: var(--accent-ink); margin-bottom:8px; }
+  .retell .frame-row{ font-size:13.5px; margin-bottom:6px; }
+  .retell .frame-row b{ color: var(--accent-ink); }
+  .retell textarea{ width:100%; min-height:120px; resize:vertical; border:1px solid var(--border-strong); border-radius:8px; background: var(--surface); color: var(--ink); font-family:'Be Vietnam Pro', sans-serif; font-size:14.5px; padding:11px 13px; margin-top:10px; }
+  .retell textarea:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  .save-note{ font-size:12px; color: var(--ink-faint); font-style:italic; margin-top:6px; }
+
+  .footnote{ font-size: 13px; color: var(--ink-faint); margin-top: 40px; padding-top:18px; border-top:1px solid var(--border); }
+
+  @media (max-width: 520px){ .wrap{ padding: 40px 16px 72px; } }
+
+  details.vocab{ border:1px solid var(--border); border-radius:10px; background:var(--surface-alt); padding:10px 14px; margin:10px 0; }
+  details.vocab summary{ cursor:pointer; font-weight:600; font-size:14px; color:var(--accent-ink); }
+  .drill-row{ display:flex; gap:10px; align-items:center; margin-bottom:8px; font-size:14px; }
+  .drill-row input{ flex:1; border:1px dashed var(--border-strong); border-radius:8px; background:var(--surface); color:var(--ink); padding:8px 10px; font-size:14px; font-family:inherit; }
+  .tbl{ width:100%; border-collapse:collapse; font-size:14px; margin:8px 0 14px; }
+  .tbl th,.tbl td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .tbl th{ font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-faint); }
+  .big textarea{ min-height:150px; }
+  .audio{ border:1px solid var(--border); border-radius:10px; background:var(--surface-alt); padding:12px 14px; margin:10px 0; }
+  .audio audio{ width:100%; }
+  .audio .row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:8px; font-size:13px; }
+  .btn{ border:1px solid var(--border-strong); background:var(--surface); color:var(--ink); border-radius:999px; padding:5px 13px; font-size:13px; cursor:pointer; font-family:inherit; }
+  .btn.on{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .audio .miss{ color:var(--danger-ink); font-size:13px; display:none; margin-top:6px; }
+  .lvl{ font-family:'Petrona',serif; font-weight:700; color:var(--accent-ink); margin:16px 0 6px; font-size:15px; }
+  .drill-row .who{ font-size:12px; color:var(--ink-faint); min-width:150px; }
+  .linkbtn{ display:inline-block; background:var(--accent); color:#fff; padding:9px 16px; border-radius:999px; text-decoration:none; font-weight:600; font-size:14px; }
+  .lab2{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--accent-ink); margin:14px 0 6px; }
+
+  :root{
+    color-scheme: light;
+    --bg:#EEF3E1; --surface:#FCFDF7; --surface-alt:#EFF4E2;
+    --ink:#1F2A1A; --ink-soft:#4A5A41; --ink-faint:#6C7C62;
+    --accent:#4E7A2E; --accent-ink:#355A1F; --accent-soft:#E3EDCF;
+    --warm:#8A6A3F; --warm-soft:#F3EAD2; --warm-ink:#6B4F26;
+    --border:#CBDAB3; --border-strong:#A9C47F;
+    --shadow:0 1px 2px rgba(53,90,31,.06), 0 8px 22px -12px rgba(53,90,31,.22);
+  }
+  html{ background:#EEF3E1; }
+  body{
+    background-color:#EAF1DA;
+    background-image:
+      linear-gradient(90deg, rgba(120,160,70,.24) 50%, transparent 50%),
+      linear-gradient(rgba(120,160,70,.24) 50%, transparent 50%);
+    background-size:44px 44px;
+  }
+  .wrap{ position:relative; background:rgba(252,253,247,.93); max-width:820px; margin:22px auto 0; border-radius:22px 22px 0 0;
+         border:1px solid var(--border); border-bottom:none; box-shadow:0 10px 40px -18px rgba(53,90,31,.35); padding:44px 28px 0; }
+  @media (max-width:640px){ .wrap{ margin:10px 10px 0; padding:28px 16px 0; border-radius:16px 16px 0 0; } }
+  .hero{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .hero-text{ flex:1 1 360px; min-width:0; }
+  .hero-plant{ width:132px; height:auto; flex:0 0 auto; margin-left:auto; filter:drop-shadow(0 6px 8px rgba(53,90,31,.18)); }
+  @media (max-width:640px){ .hero-plant{ width:96px; order:-1; margin:0 auto 0 0; } }
+  .eyebrow{ color:var(--accent-ink); }
+  .eyebrow::before{ background:var(--accent); width:22px; height:2px; border-radius:2px; }
+  .pill{ background:var(--accent-soft); border-color:var(--border-strong); color:var(--accent-ink); border-radius:2px 14px 2px 14px; padding:5px 13px; }
+  hr.rule{ border:none; height:22px; margin:36px 0;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2244%22%20height%3D%2222%22%20viewBox%3D%220%200%2044%2022%22%3E%3Cg%20fill%3D%22%236E9A45%22%3E%3Cpath%20d%3D%22M22%2018%20C14%2018%208%2012%206%204%20C14%204%2022%208%2022%2018Z%22%2F%3E%3Cpath%20d%3D%22M22%2018%20C30%2018%2036%2012%2038%204%20C30%204%2022%208%2022%2018Z%22%20fill%3D%22%239BBF6B%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M22%2020%20V9%22%20stroke%3D%22%234E7A2E%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E") center/44px 22px no-repeat,
+                linear-gradient(var(--border-strong),var(--border-strong)) left center/calc(50% - 34px) 1px no-repeat,
+                linear-gradient(var(--border-strong),var(--border-strong)) right center/calc(50% - 34px) 1px no-repeat; }
+  .sec-num{ background:var(--accent); color:#fff; border-radius:3px 14px 3px 14px; padding:1px 10px 2px; font-size:13px; }
+  .sec-head h2{ color:var(--accent-ink); }
+  .topic{ position:relative; border-radius:6px 22px 6px 22px; border-color:var(--border-strong); background:var(--surface);
+          background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cg%20fill%3D%22%239BBF6B%22%20opacity%3D%22.55%22%3E%3Cpath%20d%3D%22M60%204%20C40%206%2026%2018%2022%2038%20C42%2036%2056%2024%2060%204Z%22%2F%3E%3Cpath%20d%3D%22M60%204%20C54%2020%2040%2032%2022%2038%22%20fill%3D%22none%22%20stroke%3D%22%234E7A2E%22%20stroke-width%3D%221.2%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M44%2028%20C38%2018%2040%2012%2048%208%20C50%2016%2048%2022%2044%2028Z%22%20fill%3D%22%236E9A45%22%20opacity%3D%22.4%22%2F%3E%3C%2Fsvg%3E"); background-repeat:no-repeat; background-position:right 6px top 6px; background-size:56px; }
+  .topic-tag{ border-radius:2px 14px 2px 14px; background:var(--accent-soft); color:var(--accent-ink); }
+  .voc{ border-radius:3px 12px 3px 12px; }
+  .retell{ border-radius:6px 18px 6px 18px; }
+  .btn{ border-color:var(--border-strong); background:var(--surface); color:var(--accent-ink); }
+  .btn:hover{ background:var(--accent-soft); }
+  .btn.on{ background:var(--accent); color:#fff; border-color:var(--accent); }
+  .linkbtn{ border-radius:3px 16px 3px 16px; }
+  .note-block{ background:#F6F9EC; }
+  .note-block textarea, .drill-row input{ background:#FFFFFF; }
+  details.vocab{ border-radius:3px 14px 3px 14px; }
+  .tbl th{ color:var(--accent-ink); border-bottom:2px solid var(--border-strong); }
+  .grass{ height:44px; margin:40px -28px 0; background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%2244%22%20viewBox%3D%220%200%20160%2044%22%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M10%2044%20C10%2030%206%2022%202%2014%22%20stroke%3D%22%236E9A45%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M18%2044%20C20%2028%2024%2020%2030%2010%22%20stroke%3D%22%239BBF6B%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M28%2044%20C28%2034%2026%2028%2022%2022%22%20stroke%3D%22%234E7A2E%22%20stroke-width%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M52%2044%20C50%2032%2046%2024%2040%2018%22%20stroke%3D%22%239BBF6B%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M60%2044%20C62%2030%2066%2020%2072%208%22%20stroke%3D%22%236E9A45%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M70%2044%20C72%2034%2076%2028%2082%2024%22%20stroke%3D%22%234E7A2E%22%20stroke-width%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M96%2044%20C94%2030%2090%2022%2084%2014%22%20stroke%3D%22%236E9A45%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M104%2044%20C106%2028%20110%2018%20116%2010%22%20stroke%3D%22%239BBF6B%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M114%2044%20C116%2034%20120%2028%20124%2022%22%20stroke%3D%22%234E7A2E%22%20stroke-width%3D%222.5%22%2F%3E%3Cpath%20d%3D%22M138%2044%20C136%2032%20132%2024%20126%2016%22%20stroke%3D%22%239BBF6B%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M146%2044%20C148%2030%20152%2022%20158%2012%22%20stroke%3D%22%236E9A45%22%20stroke-width%3D%223%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x left bottom/160px 44px; }
+  @media (max-width:640px){ .grass{ margin:32px -16px 0; } }
+</style></head><body><div class="wrap">
+<div class="hero"><div class="hero-text"><span class="eyebrow">Tài liệu học viên · buổi Nghe – Bắt ý – Thuật lại</span>
+<h1 class="title">Sổ tay nghe hiểu</h1>
+<p class="lede">Mở song song trong buổi 120 phút. Khi GV đọc, bạn chỉ ghi chú nhanh — số, tên, từ khoá, mũi tên — rồi dùng chính ghi chú đó để thuật lại bằng tiếng Trung.</p></div><svg class="hero-plant" viewBox="0 0 200 170" role="img" aria-label="Chậu cây matcha nhỏ" xmlns="http://www.w3.org/2000/svg">
+<path d="M100 128 C96 100 104 78 100 44" fill="none" stroke="#4E7A2E" stroke-width="3.5" stroke-linecap="round"/>
+<defs><g id="lf"><path d="M0 0 C10 -13 30 -15 46 -2 C33 11 12 13 0 0Z"/><path d="M3 0 L40 -2" fill="none" stroke="#F4F8E8" stroke-width="1.2" opacity=".7"/></g></defs>
+<g fill="#6E9A45"><use href="#lf" transform="translate(100 112) rotate(-28)"/><use href="#lf" transform="translate(100 112) scale(-1 1) rotate(-28)" fill="#9BBF6B"/></g>
+<g fill="#9BBF6B"><use href="#lf" transform="translate(100 90) rotate(-40)"/></g><g fill="#6E9A45"><use href="#lf" transform="translate(100 90) scale(-1 1) rotate(-40)"/></g>
+<g fill="#6E9A45"><use href="#lf" transform="translate(100 68) rotate(-52) scale(.85)"/></g><g fill="#9BBF6B"><use href="#lf" transform="translate(100 68) scale(-1 1) rotate(-52) scale(.85)"/></g>
+<g fill="#4E7A2E"><use href="#lf" transform="translate(100 46) rotate(-80) scale(.7)"/></g>
+<path d="M66 128 H134 V138 Q134 140 132 140 H68 Q66 140 66 138Z" fill="#9C744A"/>
+<path d="M72 140 H128 L121 166 Q120.5 168 118.5 168 H81.5 Q79.5 168 79 166Z" fill="#B48A5A"/>
+<path d="M74 150 H126" stroke="#9C744A" stroke-width="1.5" opacity=".6"/>
+</svg></div>
+<div class="meta-row"><span class="pill">120 phút · 5 bài nghe</span><span class="pill">Bạn nghe — GV đọc</span></div>
+<p class="save-note">Những gì bạn gõ được lưu tạm trên trình duyệt này. Nếu mở file bằng cách bấm đúp, tính năng lưu có thể không hoạt động — đừng tắt trang giữa buổi.</p>
+<hr class="rule">
+<section><div class="sec-head"><span class="sec-num">01</span><h2>Ký hiệu ghi chú nhanh</h2></div>
+<table class="tbl"><tr><th>Ký hiệu</th><th>Ý nghĩa</th></tr><tr><td><b>↑  ↓</b></td><td>tăng / giảm</td></tr><tr><td><b>→</b></td><td>dẫn đến / kết quả</td></tr><tr><td><b>?</b></td><td>điều chưa nghe rõ — hỏi lại sau</td></tr><tr><td><b>Số Ả Rập</b></td><td>ghi 1000 thay vì 一千 — nhanh hơn nhiều</td></tr><tr><td><b>Chỉ chữ đầu / pinyin</b></td><td>không biết viết thì ghi pinyin hoặc tiếng Việt, đừng dừng lại</td></tr></table></section>
+<section><div class="sec-head"><span class="sec-num">02</span><h2>Từ khoá tín hiệu</h2></div>
+<table class="tbl"><tr><th>Nghe thấy</th><th>Báo hiệu</th><th>Làm gì</th></tr><tr><td class="zh"><b>不过 / 但是 / 可是</b></td><td>sắp có ý NGƯỢC hoặc vấn đề — ghi lại ngay</td><td>Nghe thấy → khoanh tròn trong ghi chú</td></tr><tr><td class="zh"><b>其中</b></td><td>một phần nhỏ trong tổng số → thường kèm số liệu</td><td>Ghi số + phần trăm</td></tr><tr><td class="zh"><b>原因是 / 因为 / 所以</b></td><td>lý do hoặc kết quả</td><td>Ghi bằng mũi tên: A → B</td></tr><tr><td class="zh"><b>比如 / 一位……说</b></td><td>ví dụ cụ thể, nhân vật</td><td>Ghi tên/tuổi/nghề + con số</td></tr><tr><td class="zh"><b>专家建议 / 老板表示</b></td><td>giải pháp hoặc quyết định</td><td>Thường nằm gần cuối bài</td></tr><tr><td class="zh"><b>总的来说 / 总之</b></td><td>kết luận</td><td>Dùng nguyên văn để chốt phần thuật lại</td></tr></table></section>
+<section><div class="sec-head"><span class="sec-num">03</span><h2>Khung thuật lại</h2></div>
+<div class="retell"><div class="frame-row"><b>1. Mở đầu:</b> <span class="zh">这篇新闻 / 文章说……</span> <span style="color:var(--ink-soft);">(Bài tin / bài viết này nói...)</span></div><div class="frame-row"><b>2. Số liệu & ý chính:</b> <span class="zh">调查/统计显示…… 其中……</span> <span style="color:var(--ink-soft);">(Khảo sát/thống kê cho thấy... trong đó...)</span></div><div class="frame-row"><b>3. Lý do / ví dụ:</b> <span class="zh">原因是…… 比如……</span> <span style="color:var(--ink-soft);">(Nguyên nhân là... ví dụ...)</span></div><div class="frame-row"><b>4. Ý ngược / vấn đề:</b> <span class="zh">不过 / 但是，也有人(也有问题)……</span> <span style="color:var(--ink-soft);">(Tuy nhiên, cũng có người (cũng có vấn đề)...)</span></div><div class="frame-row"><b>5. Giải pháp / dự định:</b> <span class="zh">专家建议…… / 他们打算……</span> <span style="color:var(--ink-soft);">(Chuyên gia gợi ý... / Họ dự định...)</span></div><div class="frame-row"><b>6. Chốt lại:</b> <span class="zh">总的来说，……</span> <span style="color:var(--ink-soft);">(Nói chung,...)</span></div></div></section>
+<section><div class="sec-head"><span class="sec-num">03b</span><h2>Nghe từ thật với YouGlish</h2></div><p>Từ nào nghe sót hoặc phát âm chưa chắc: bấm 🔊 cạnh từ trong bảng từ vựng, hoặc mở <a href="https://youglish.com/pronounce/%E7%94%9F%E6%B4%BB/chinese/tw" target="_blank" rel="noopener">ví dụ từ 生活</a>. YouGlish phát các đoạn video thật có người nói từ đó. Nghe 3 đoạn, chú ý ngữ điệu và tốc độ.</p></section>
+<hr class="rule">
+<section><div class="sec-head"><span class="sec-num">04</span><h2>Luyện nghe số</h2></div>
+<p class="soft">Bấm ▶ Nghe: giọng AI đọc câu hai lần. Chỉ ghi các con số bằng chữ số Ả Rập. <span id="tts-status"></span> <button class="btn" id="tts-stop">■ Dừng đọc</button></p>
+<div class="lvl">Mức A — tiền, số điện thoại, số lớn</div><div class="drill-row"><button class="btn" data-say="0" data-sp="f1">▶ Nghe</button><span class="who">1. Giọng nữ, tốc độ vừa</span><input data-note-id="drill-1" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="1" data-sp="m1">▶ Nghe</button><span class="who">2. Giọng nam, tốc độ vừa</span><input data-note-id="drill-2" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="2" data-sp="f2">▶ Nghe</button><span class="who">3. Giọng nữ, nhanh</span><input data-note-id="drill-3" placeholder="Ghi số bạn nghe được"></div><div class="lvl">Mức B — ngày giờ, khoảng thời gian</div><div class="drill-row"><button class="btn" data-say="3" data-sp="m2">▶ Nghe</button><span class="who">4. Giọng nam, nhanh</span><input data-note-id="drill-4" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="4" data-sp="f1">▶ Nghe</button><span class="who">5. Giọng nữ, tốc độ vừa</span><input data-note-id="drill-5" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="5" data-sp="m1">▶ Nghe</button><span class="who">6. Giọng nam, tốc độ vừa</span><input data-note-id="drill-6" placeholder="Ghi số bạn nghe được"></div><div class="lvl">Mức C — phần trăm, phân số, so sánh</div><div class="drill-row"><button class="btn" data-say="6" data-sp="f2">▶ Nghe</button><span class="who">7. Giọng nữ, nhanh</span><input data-note-id="drill-7" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="7" data-sp="m2">▶ Nghe</button><span class="who">8. Giọng nam, nhanh</span><input data-note-id="drill-8" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="8" data-sp="f1">▶ Nghe</button><span class="who">9. Giọng nữ, tốc độ vừa</span><input data-note-id="drill-9" placeholder="Ghi số bạn nghe được"></div><div class="lvl">Mức D — nhiều số trong một câu, có bẫy</div><div class="drill-row"><button class="btn" data-say="9" data-sp="m1">▶ Nghe</button><span class="who">10. Giọng nam, tốc độ vừa</span><input data-note-id="drill-10" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="10" data-sp="f2">▶ Nghe</button><span class="who">11. Giọng nữ, nhanh</span><input data-note-id="drill-11" placeholder="Ghi số bạn nghe được"></div><div class="drill-row"><button class="btn" data-say="11" data-sp="m2">▶ Nghe</button><span class="who">12. Giọng nam, nhanh</span><input data-note-id="drill-12" placeholder="Ghi số bạn nghe được"></div>
+<details class="vocab"><summary>Đáp án — chỉ mở sau khi làm xong</summary><table class="tbl"><tr><th>#</th><th>Đáp án</th><th>Lưu ý</th></tr><tr><td>1</td><td>589; 7.5折 = trả 75% giá</td><td>打折 nói số ngược với tiếng Việt: 七五折 = 75% giá</td></tr><tr><td>2</td><td>138 0927 4465</td><td>Số điện thoại đọc từng chữ số</td></tr><tr><td>3</td><td>21.500.000</td><td>万 = 10.000: 两千一百五十万</td></tr><tr><td>4</td><td>ngày 17; 14:45</td><td>两点 (không phải 二点); 下午 + 2 = 14:00</td></tr><tr><td>5</td><td>9:30 → 22:00</td><td>半 = 30 phút</td></tr><tr><td>6</td><td>3 năm ngoái; 8 năm nay; 17 tháng</td><td>Nghe cả tháng lẫn số tháng</td></tr><tr><td>7</td><td>+12,5%</td><td>点 = dấu thập phân</td></tr><tr><td>8</td><td>2/3; 1/7</td><td>Phân số đọc mẫu số trước: 三分之二 = 2/3</td></tr><tr><td>9</td><td>120 → 180; +50%</td><td>一半 = 50%; tự kiểm tra: 60 / 120 = 50%</td></tr><tr><td>10</td><td>206 (không phải 260)</td><td>二零六 và 二百六 khác nhau: cẩn thận số 0</td></tr><tr><td>11</td><td>3050; 1525</td><td>零 chen giữa: 三千零五十 = 3050</td></tr><tr><td>12</td><td>9:20; trễ 40'; 10:00</td><td>Nhiều số trong một câu: cần ghi nhanh và tự kiểm tra 9:20 + 40' = 10:00</td></tr></table></details></section>
+<hr class="rule"><div class="topic"><div class="topic-head"><span class="topic-tag">Bài nghe 1</span><h3 style="margin:0;" class="zh">在家做饭 <span style="font-weight:400;color:var(--ink-soft);">— Nấu ăn ở nhà</span></h3></div>
+<details class="vocab"><summary>Từ vựng (xem trước)</summary>
+<div class="voc-grid"><div class="voc"><span class="hz zh">调查</span><span class="py">diàochá</span> <a href="https://youglish.com/pronounce/%E8%B0%83%E6%9F%A5/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">khảo sát</div></div><div class="voc"><span class="hz zh">愿意</span><span class="py">yuànyì</span> <a href="https://youglish.com/pronounce/%E6%84%BF%E6%84%8F/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">sẵn lòng</div></div><div class="voc"><span class="hz zh">至少</span><span class="py">zhìshǎo</span> <a href="https://youglish.com/pronounce/%E8%87%B3%E5%B0%91/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">ít nhất</div></div><div class="voc"><span class="hz zh">外卖</span><span class="py">wàimài</span> <a href="https://youglish.com/pronounce/%E5%A4%96%E5%8D%96/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">đồ ăn giao tận nơi</div></div><div class="voc"><span class="hz zh">健康</span><span class="py">jiànkāng</span> <a href="https://youglish.com/pronounce/%E5%81%A5%E5%BA%B7/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">sức khoẻ, khoẻ mạnh</div></div><div class="voc"><span class="hz zh">上班族</span><span class="py">shàngbānzú</span> <a href="https://youglish.com/pronounce/%E4%B8%8A%E7%8F%AD%E6%97%8F/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">dân văn phòng</div></div><div class="voc"><span class="hz zh">专家</span><span class="py">zhuānjiā</span> <a href="https://youglish.com/pronounce/%E4%B8%93%E5%AE%B6/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">chuyên gia</div></div><div class="voc"><span class="hz zh">冰箱</span><span class="py">bīngxiāng</span> <a href="https://youglish.com/pronounce/%E5%86%B0%E7%AE%B1/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">tủ lạnh</div></div></div></details>
+<div class="audio"><audio controls preload="none" data-aud="p1" src="audio/bai1.mp3"></audio><div class="row"><span>Tốc độ:</span><button class="btn" data-rate="0.75">0,75×</button><button class="btn on" data-rate="1">1×</button><button class="btn" data-rate="1.25">1,25×</button><span style="margin-left:auto;">Đã nghe hết: <b data-count="p1">0</b> lần (nên nghe tối đa 2 lần trước khi thuật lại)</span></div><div class="miss">Chưa có file audio/bai1.mp3 — nhờ GV tải file lên cùng trang này.</div></div><div class="lab2">Ghi chú khi nghe</div><div class="note-block big"><textarea data-note-id="p1-notes" placeholder="Số, tên, từ khoá, mũi tên... Chỗ nghe hụt ghi dấu ? rồi nghe tiếp."></textarea></div>
+<div class="retell"><h3>Thuật lại của bạn (nháp)</h3><textarea data-note-id="p1-retell" placeholder="这篇新闻说……"></textarea></div>
+<div class="lab2">Chỗ mình nghe sót, và vì sao (từ lạ / nghe nhanh / số)</div><div class="note-block "><textarea data-note-id="p1-miss" placeholder="Điền sau bước đối chiếu."></textarea></div></div><div class="topic"><div class="topic-head"><span class="topic-tag">Bài nghe 2</span><h3 style="margin:0;" class="zh">四天工作制 <span style="font-weight:400;color:var(--ink-soft);">— Tuần làm việc bốn ngày</span></h3></div>
+<details class="vocab"><summary>Từ vựng (chỉ mở sau khi nghe xong)</summary>
+<div class="voc-grid"><div class="voc"><span class="hz zh">试行</span><span class="py">shìxíng</span> <a href="https://youglish.com/pronounce/%E8%AF%95%E8%A1%8C/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">thí điểm</div></div><div class="voc"><span class="hz zh">制度</span><span class="py">zhìdù</span> <a href="https://youglish.com/pronounce/%E5%88%B6%E5%BA%A6/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">chế độ, quy định</div></div><div class="voc"><span class="hz zh">员工</span><span class="py">yuángōng</span> <a href="https://youglish.com/pronounce/%E5%91%98%E5%B7%A5/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">nhân viên</div></div><div class="voc"><span class="hz zh">效率</span><span class="py">xiàolǜ</span> <a href="https://youglish.com/pronounce/%E6%95%88%E7%8E%87/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">hiệu suất</div></div><div class="voc"><span class="hz zh">三分之一</span><span class="py">sān fēn zhī yī</span> <a href="https://youglish.com/pronounce/%E4%B8%89%E5%88%86%E4%B9%8B%E4%B8%80/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">một phần ba</div></div><div class="voc"><span class="hz zh">客服</span><span class="py">kèfú</span> <a href="https://youglish.com/pronounce/%E5%AE%A2%E6%9C%8D/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">chăm sóc khách hàng</div></div><div class="voc"><span class="hz zh">轮流</span><span class="py">lúnliú</span> <a href="https://youglish.com/pronounce/%E8%BD%AE%E6%B5%81/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">luân phiên</div></div><div class="voc"><span class="hz zh">值班</span><span class="py">zhíbān</span> <a href="https://youglish.com/pronounce/%E5%80%BC%E7%8F%AD/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">trực ca</div></div><div class="voc"><span class="hz zh">不得不</span><span class="py">bùdébù</span> <a href="https://youglish.com/pronounce/%E4%B8%8D%E5%BE%97%E4%B8%8D/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">buộc phải</div></div></div></details>
+<div class="audio"><audio controls preload="none" data-aud="p2" src="audio/bai2.mp3"></audio><div class="row"><span>Tốc độ:</span><button class="btn" data-rate="0.75">0,75×</button><button class="btn on" data-rate="1">1×</button><button class="btn" data-rate="1.25">1,25×</button><span style="margin-left:auto;">Đã nghe hết: <b data-count="p2">0</b> lần (nên nghe tối đa 2 lần trước khi thuật lại)</span></div><div class="miss">Chưa có file audio/bai2.mp3 — nhờ GV tải file lên cùng trang này.</div></div><div class="lab2">Ghi chú khi nghe</div><div class="note-block big"><textarea data-note-id="p2-notes" placeholder="Số, tên, từ khoá, mũi tên... Chỗ nghe hụt ghi dấu ? rồi nghe tiếp."></textarea></div>
+<div class="retell"><h3>Thuật lại của bạn (nháp)</h3><textarea data-note-id="p2-retell" placeholder="这篇新闻说……"></textarea></div>
+<div class="lab2">Chỗ mình nghe sót, và vì sao (từ lạ / nghe nhanh / số)</div><div class="note-block "><textarea data-note-id="p2-miss" placeholder="Điền sau bước đối chiếu."></textarea></div></div><div class="topic"><div class="topic-head"><span class="topic-tag">Bài nghe 3</span><h3 style="margin:0;" class="zh">一个人旅行 <span style="font-weight:400;color:var(--ink-soft);">— Du lịch một mình</span></h3></div>
+<details class="vocab"><summary>Từ vựng (chỉ mở sau khi nghe xong — GV nói trước 3 từ khoá)</summary>
+<div class="voc-grid"><div class="voc"><span class="hz zh">统计</span><span class="py">tǒngjì</span> <a href="https://youglish.com/pronounce/%E7%BB%9F%E8%AE%A1/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">thống kê</div></div><div class="voc"><span class="hz zh">其中</span><span class="py">qízhōng</span> <a href="https://youglish.com/pronounce/%E5%85%B6%E4%B8%AD/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">trong đó</div></div><div class="voc"><span class="hz zh">迷路</span><span class="py">mílù</span> <a href="https://youglish.com/pronounce/%E8%BF%B7%E8%B7%AF/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">lạc đường</div></div><div class="voc"><span class="hz zh">当地</span><span class="py">dāngdì</span> <a href="https://youglish.com/pronounce/%E5%BD%93%E5%9C%B0/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">địa phương</div></div><div class="voc"><span class="hz zh">自由</span><span class="py">zìyóu</span> <a href="https://youglish.com/pronounce/%E8%87%AA%E7%94%B1/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">tự do</div></div><div class="voc"><span class="hz zh">考虑</span><span class="py">kǎolǜ</span> <a href="https://youglish.com/pronounce/%E8%80%83%E8%99%91/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">cân nhắc, nghĩ đến</div></div><div class="voc"><span class="hz zh">计划</span><span class="py">jìhuà</span> <a href="https://youglish.com/pronounce/%E8%AE%A1%E5%88%92/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">kế hoạch; lên kế hoạch</div></div><div class="voc"><span class="hz zh">百分之</span><span class="py">bǎi fēn zhī</span> <a href="https://youglish.com/pronounce/%E7%99%BE%E5%88%86%E4%B9%8B/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">phần trăm</div></div></div></details>
+<div class="audio"><audio controls preload="none" data-aud="p3" src="audio/bai3.mp3"></audio><div class="row"><span>Tốc độ:</span><button class="btn" data-rate="0.75">0,75×</button><button class="btn on" data-rate="1">1×</button><button class="btn" data-rate="1.25">1,25×</button><span style="margin-left:auto;">Đã nghe hết: <b data-count="p3">0</b> lần (nên nghe tối đa 2 lần trước khi thuật lại)</span></div><div class="miss">Chưa có file audio/bai3.mp3 — nhờ GV tải file lên cùng trang này.</div></div><div class="lab2">Ghi chú khi nghe</div><div class="note-block big"><textarea data-note-id="p3-notes" placeholder="Số, tên, từ khoá, mũi tên... Chỗ nghe hụt ghi dấu ? rồi nghe tiếp."></textarea></div>
+<div class="retell"><h3>Thuật lại của bạn (nháp)</h3><textarea data-note-id="p3-retell" placeholder="这篇新闻说……"></textarea></div>
+<div class="lab2">Chỗ mình nghe sót, và vì sao (từ lạ / nghe nhanh / số)</div><div class="note-block "><textarea data-note-id="p3-miss" placeholder="Điền sau bước đối chiếu."></textarea></div></div><div class="topic"><div class="topic-head"><span class="topic-tag">Bài nghe 4 · bài thêm, nghe ở nhà</span><h3 style="margin:0;" class="zh">现金越来越少 <span style="font-weight:400;color:var(--ink-soft);">— Tiền mặt ngày càng ít</span></h3></div>
+<details class="vocab"><summary>Từ vựng (chỉ mở sau khi nghe xong — GV nói trước 3 từ khoá)</summary>
+<div class="voc-grid"><div class="voc"><span class="hz zh">现金</span><span class="py">xiànjīn</span> <a href="https://youglish.com/pronounce/%E7%8E%B0%E9%87%91/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">tiền mặt</div></div><div class="voc"><span class="hz zh">显示</span><span class="py">xiǎnshì</span> <a href="https://youglish.com/pronounce/%E6%98%BE%E7%A4%BA/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">cho thấy</div></div><div class="voc"><span class="hz zh">支付</span><span class="py">zhīfù</span> <a href="https://youglish.com/pronounce/%E6%94%AF%E4%BB%98/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">thanh toán</div></div><div class="voc"><span class="hz zh">习惯</span><span class="py">xíguàn</span> <a href="https://youglish.com/pronounce/%E4%B9%A0%E6%83%AF/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">quen, thói quen</div></div><div class="voc"><span class="hz zh">骗</span><span class="py">piàn</span> <a href="https://youglish.com/pronounce/%E9%AA%97/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">lừa</div></div><div class="voc"><span class="hz zh">拒绝</span><span class="py">jùjué</span> <a href="https://youglish.com/pronounce/%E6%8B%92%E7%BB%9D/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">từ chối</div></div><div class="voc"><span class="hz zh">社区</span><span class="py">shèqū</span> <a href="https://youglish.com/pronounce/%E7%A4%BE%E5%8C%BA/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">khu dân cư, phường</div></div><div class="voc"><span class="hz zh">放心</span><span class="py">fàngxīn</span> <a href="https://youglish.com/pronounce/%E6%94%BE%E5%BF%83/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">yên tâm</div></div></div></details>
+<div class="audio"><audio controls preload="none" data-aud="p4" src="audio/bai4.mp3"></audio><div class="row"><span>Tốc độ:</span><button class="btn" data-rate="0.75">0,75×</button><button class="btn on" data-rate="1">1×</button><button class="btn" data-rate="1.25">1,25×</button><span style="margin-left:auto;">Đã nghe hết: <b data-count="p4">0</b> lần (nên nghe tối đa 2 lần trước khi thuật lại)</span></div><div class="miss">Chưa có file audio/bai4.mp3 — nhờ GV tải file lên cùng trang này.</div></div><div class="lab2">Ghi chú khi nghe</div><div class="note-block big"><textarea data-note-id="p4-notes" placeholder="Số, tên, từ khoá, mũi tên... Chỗ nghe hụt ghi dấu ? rồi nghe tiếp."></textarea></div>
+<div class="retell"><h3>Thuật lại của bạn (nháp)</h3><textarea data-note-id="p4-retell" placeholder="这篇新闻说……"></textarea></div>
+<div class="lab2">Chỗ mình nghe sót, và vì sao (từ lạ / nghe nhanh / số)</div><div class="note-block "><textarea data-note-id="p4-miss" placeholder="Điền sau bước đối chiếu."></textarea></div></div><div class="topic"><div class="topic-head"><span class="topic-tag">Bài nghe 5 · bài thêm, nghe ở nhà</span><h3 style="margin:0;" class="zh">年轻人睡得太少 <span style="font-weight:400;color:var(--ink-soft);">— Người trẻ ngủ quá ít</span></h3></div>
+<details class="vocab"><summary>Từ vựng (chỉ mở sau khi nghe xong)</summary>
+<div class="voc-grid"><div class="voc"><span class="hz zh">将近</span><span class="py">jiāngjìn</span> <a href="https://youglish.com/pronounce/%E5%B0%86%E8%BF%91/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">gần, xấp xỉ</div></div><div class="voc"><span class="hz zh">上班族</span><span class="py">shàngbānzú</span> <a href="https://youglish.com/pronounce/%E4%B8%8A%E7%8F%AD%E6%97%8F/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">dân văn phòng</div></div><div class="voc"><span class="hz zh">刷手机</span><span class="py">shuā shǒujī</span> <a href="https://youglish.com/pronounce/%E5%88%B7%E6%89%8B%E6%9C%BA/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">lướt điện thoại</div></div><div class="voc"><span class="hz zh">精神</span><span class="py">jīngshen</span> <a href="https://youglish.com/pronounce/%E7%B2%BE%E7%A5%9E/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">tinh thần, sự tỉnh táo</div></div><div class="voc"><span class="hz zh">建议</span><span class="py">jiànyì</span> <a href="https://youglish.com/pronounce/%E5%BB%BA%E8%AE%AE/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">gợi ý, khuyên</div></div><div class="voc"><span class="hz zh">补觉</span><span class="py">bǔ jiào</span> <a href="https://youglish.com/pronounce/%E8%A1%A5%E8%A7%89/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">ngủ bù</div></div><div class="voc"><span class="hz zh">平均</span><span class="py">píngjūn</span> <a href="https://youglish.com/pronounce/%E5%B9%B3%E5%9D%87/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">trung bình</div></div><div class="voc"><span class="hz zh">影响</span><span class="py">yǐngxiǎng</span> <a href="https://youglish.com/pronounce/%E5%BD%B1%E5%93%8D/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">ảnh hưởng</div></div><div class="voc"><span class="hz zh">程序员</span><span class="py">chéngxùyuán</span> <a href="https://youglish.com/pronounce/%E7%A8%8B%E5%BA%8F%E5%91%98/chinese/tw" target="_blank" rel="noopener" title="Nghe từ này trong video thật (YouGlish)">🔊</a><div class="vi">lập trình viên</div></div></div></details>
+<div class="audio"><audio controls preload="none" data-aud="p5" src="audio/bai5.mp3"></audio><div class="row"><span>Tốc độ:</span><button class="btn" data-rate="0.75">0,75×</button><button class="btn on" data-rate="1">1×</button><button class="btn" data-rate="1.25">1,25×</button><span style="margin-left:auto;">Đã nghe hết: <b data-count="p5">0</b> lần (nên nghe tối đa 2 lần trước khi thuật lại)</span></div><div class="miss">Chưa có file audio/bai5.mp3 — nhờ GV tải file lên cùng trang này.</div></div><div class="lab2">Ghi chú khi nghe</div><div class="note-block big"><textarea data-note-id="p5-notes" placeholder="Số, tên, từ khoá, mũi tên... Chỗ nghe hụt ghi dấu ? rồi nghe tiếp."></textarea></div>
+<div class="retell"><h3>Thuật lại của bạn (nháp)</h3><textarea data-note-id="p5-retell" placeholder="这篇新闻说……"></textarea></div>
+<div class="lab2">Chỗ mình nghe sót, và vì sao (từ lạ / nghe nhanh / số)</div><div class="note-block "><textarea data-note-id="p5-miss" placeholder="Điền sau bước đối chiếu."></textarea></div></div><div class="topic"><h3>Bài về nhà</h3><p class="soft">Chọn bài 4 hoặc bài 5 (bài thêm ở trên), nghe bằng file MP3. Nghe hai lần, ghi chú, rồi gửi GV tin nhắn thoại khoảng 1 phút thuật lại, dùng khung ở mục 03.</p><div class="note-block "><textarea data-note-id="hw-notes" placeholder="Ghi chú bài về nhà."></textarea></div></div><div class="grass" aria-hidden="true"></div></div>
+<script>
+(function(){
+  try{document.querySelectorAll('[data-note-id]').forEach(function(el){var k='nghe-sotay-'+el.getAttribute('data-note-id');try{var v=localStorage.getItem(k);if(v)el.value=v;}catch(e){}el.addEventListener('input',function(){try{localStorage.setItem(k,el.value);}catch(e){}});});}catch(e){}
+  // audio: đổi tên file ở đây nếu cần
+  var AUDIO={p1:'audio/bai1.mp3',p2:'audio/bai2.mp3',p3:'audio/bai3.mp3',p4:'audio/bai4.mp3',p5:'audio/bai5.mp3'};
+  // speed, play count, missing-file notice
+  document.querySelectorAll('.audio').forEach(function(box){
+    var au=box.querySelector('audio'), id=au.getAttribute('data-aud'), cnt=box.querySelector('[data-count]'), n=0;if(AUDIO[id])au.src=AUDIO[id];
+    box.querySelectorAll('[data-rate]').forEach(function(bt){bt.addEventListener('click',function(){au.playbackRate=parseFloat(bt.getAttribute('data-rate'));box.querySelectorAll('[data-rate]').forEach(function(o){o.classList.remove('on');});bt.classList.add('on');});});
+    au.addEventListener('ended',function(){n++;cnt.textContent=n;});
+    au.addEventListener('error',function(){box.querySelector('.miss').style.display='block';});
+  });
+  // AI voice for number drill (browser speech synthesis) - each sentence is read exactly twice, then stops
+  var SP={f1:{g:'f',r:0.9,p:1.05},m1:{g:'m',r:0.9,p:0.85},f2:{g:'f',r:1.1,p:1.0},m2:{g:'m',r:1.1,p:0.9}};
+  var SENT=["这件衣服原价五百八十九，现在打七五折。","他的电话号码是一三八，零九二七，四四六五。","这个城市有两千一百五十万人口。","会议改到下个月十七号，下午两点四十五分。","这家店每天从早上九点半营业到晚上十点。","去年三月到今年八月，一共十七个月。","今年销售额比去年增加了百分之十二点五。","三分之二的员工同意，只有七分之一的人反对。","价格从一百二十块涨到一百八十块，涨了一半。","房间号是二零六，不是二百六。","他们两个人一共花了三千零五十块，每人平均一千五百二十五块。","飞机原定九点二十起飞，晚点了四十分钟，所以十点才起飞。"];
+  var FEM=/xiaoxiao|xiaoyi|xiaochen|xiaohan|xiaomeng|xiaomo|xiaoqiu|xiaorui|xiaoshuang|xiaoyan|xiaozhen|ting-?ting|huihui|yaoyao|meijia|female|woman|mandarin/i;
+  var MAL=/yunxi|yunyang|yunjian|yunhao|yunze|yunfeng|kangkang|zhiwei|male|liang/i;
+  var voices=[], runId=0, timer=null, watchdog=null, keep=[];
+  function load(){voices=(window.speechSynthesis?speechSynthesis.getVoices():[]).filter(function(v){return /^zh/i.test(v.lang);});var st=document.getElementById('tts-status');if(st)st.textContent=voices.length?'':'(Máy này chưa có giọng tiếng Trung — hãy mở bằng Microsoft Edge hoặc Chrome mới nhất, hoặc nhờ GV đọc.)';}
+  if(window.speechSynthesis){load();speechSynthesis.onvoiceschanged=load;}else{var st0=document.getElementById('tts-status');if(st0)st0.textContent='(Trình duyệt không hỗ trợ giọng đọc.)';}
+  function pick(g){var re=g==='f'?FEM:MAL, other=g==='f'?MAL:FEM;var m=voices.filter(function(v){return re.test(v.name);});if(m.length)return m[0];var o=voices.filter(function(v){return !other.test(v.name);});return (o[0]||voices[0]);}
+  function resetButtons(){document.querySelectorAll('[data-say]').forEach(function(b){b.textContent=b.getAttribute('data-done')==='1'?'▶ Nghe lại':'▶ Nghe';b.classList.remove('on');});}
+  function stopAll(){runId++;clearTimeout(timer);clearTimeout(watchdog);try{if(window.speechSynthesis)speechSynthesis.cancel();}catch(e){}resetButtons();}
+  var stopBtn=document.getElementById('tts-stop');if(stopBtn)stopBtn.addEventListener('click',stopAll);
+  document.querySelectorAll('[data-say]').forEach(function(bt){bt.addEventListener('click',function(){
+    if(bt.classList.contains('on')){stopAll();return;}
+    if(!window.speechSynthesis||!voices.length){load();return;}
+    stopAll();
+    var my=runId, cfg=SP[bt.getAttribute('data-sp')], txt=SENT[parseInt(bt.getAttribute('data-say'),10)], round=0;
+    bt.classList.add('on');bt.textContent='■ Dừng';
+    function finish(){if(my!==runId)return;bt.setAttribute('data-done','1');runId++;clearTimeout(watchdog);resetButtons();}
+    function once(){
+      if(my!==runId)return;
+      var u=new SpeechSynthesisUtterance(txt),fired=false;u.lang='zh-CN';var v=pick(cfg.g);if(v)u.voice=v;u.rate=cfg.r;u.pitch=cfg.p;
+      function done(){if(fired||my!==runId)return;fired=true;clearTimeout(watchdog);round++;if(round<2){timer=setTimeout(once,1500);}else{finish();}}
+      u.onend=done;u.onerror=function(){if(my===runId){fired=true;finish();}};
+      keep.push(u);if(keep.length>8)keep.shift();
+      clearTimeout(watchdog);watchdog=setTimeout(done,Math.max(4000,txt.length*450/cfg.r));
+      speechSynthesis.speak(u);
+    }
+    once();
+  });});
+})();
+</script></body></html>
